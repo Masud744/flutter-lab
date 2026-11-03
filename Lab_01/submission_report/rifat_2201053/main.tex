@@ -1,0 +1,199 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1.8cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{booktabs}
+
+% Hyperlink configuration
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={IRE 460 - Lab Report: Digital Wallet Backend},
+    pdfauthor={Md Fazle Rabbi Rifat}
+}
+
+% Dart syntax highlighting
+\definecolor{codegreen}{rgb}{0,0.55,0}
+\definecolor{codegray}{rgb}{0.45,0.45,0.45}
+\definecolor{codepurple}{rgb}{0.55,0,0.75}
+\definecolor{backcolour}{rgb}{0.98,0.98,0.98}
+\definecolor{keywordblue}{rgb}{0.0,0.2,0.8}
+
+\lstdefinelanguage{Dart}{
+  morekeywords={abstract,as,assert,async,await,break,case,catch,class,const,continue,default,deferred,do,dynamic,else,enum,export,extends,extension,external,factory,false,final,finally,for,Function,get,hide,if,implements,import,in,interface,is,late,library,mixin,new,null,of,on,operator,part,rethrow,return,set,show,static,super,switch,sync,this,throw,true,try,typedef,var,void,while,with,yield},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinestyle{dartstyle}{
+    language=Dart,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{keywordblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small\linespread{0.92}\selectfont,
+    breaklines=true,                 
+    numbers=left,                    
+    numbersep=6pt,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{lightgray},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false
+}
+
+\lstset{style=dartstyle}
+
+\begin{document}
+
+% ==============================================================================
+% COVER PAGE
+% ==============================================================================
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[line width=1.2pt] 
+            ([shift={(1.2cm,-1.2cm)}]current page.north west) 
+            rectangle 
+            ([shift={(-1.2cm,1.2cm)}]current page.south east);
+        \draw[line width=0.5pt] 
+            ([shift={(1.32cm,-1.32cm)}]current page.north west) 
+            rectangle 
+            ([shift={(-1.32cm,1.32cm)}]current page.south east);
+    \end{tikzpicture}
+
+    \centering
+    \vspace*{0.4cm}
+
+    \includegraphics[width=3.6cm]{screenshots/uftb_logo.png}\\[0.4cm]
+    {\normalsize \textbf{UNIVERSITY OF FRONTIER TECHNOLOGY, BANGLADESH}}\\[0.16cm]
+    {\footnotesize \textbf{DEPARTMENT OF INTERNET OF THINGS AND ROBOTICS ENGINEERING (IRE)}}\\[0.14cm]
+    {\footnotesize FACULTY OF CYBER PHYSICAL SYSTEM ENGINEERING}\\[0.65cm]
+
+    \noindent\rule{0.88\textwidth}{0.85pt}\\[0.85cm]
+
+    {\large \textbf{LAB REPORT 01}}\\[0.25cm]
+    {\normalsize \textbf{DIGITAL WALLET BACKEND SYSTEM}}\\[0.15cm]
+    {\footnotesize \textit{(Object-Oriented Programming with Encapsulation \& Inheritance in Dart)}}\\[0.85cm]
+
+    {\normalsize \textbf{COURSE CODE: IRE 460}}\\[0.18cm]
+    {\normalsize \textbf{COURSE TITLE: MOBILE PLATFORM FOR IOT DEVICES SESSIONAL}}\\[1.0cm]
+
+    {\small \textbf{\underline{SUBMITTED BY:}}}\\[0.22cm]
+    {\large \textbf{Md Fazle Rabbi Rifat}}\\[0.14cm]
+    {\small Student ID: \textbf{2201053} \quad $\vert$ \quad Session: 2022--2023}\\[0.1cm]
+    {\footnotesize Department of Internet of Things and Robotics Engineering (IRE), UFTB}\\[0.95cm]
+
+    {\small \textbf{\underline{SUBMITTED TO:}}}\\[0.22cm]
+    {\large \textbf{Md. Rafiqul Islam}}\\[0.14cm]
+    {\small Lecturer}\\[0.1cm]
+    {\footnotesize Department of Internet of Things and Robotics Engineering (IRE)}\\[0.08cm]
+    {\footnotesize University of Frontier Technology, Bangladesh}
+
+    \vfill
+    {\footnotesize NOVEMBER 03, 2026}
+    \vspace*{0.3cm}
+\end{titlepage}
+
+\newpage
+\pagenumbering{arabic}
+
+% ==============================================================================
+% PAGE 2: PROBLEM STATEMENT & DESIGN
+% ==============================================================================
+\section*{1. Problem Description}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+This lab task involves creating a simple backend system for a Digital Wallet application in Dart. The application manages two forms of bank accounts: \textbf{Standard Accounts} and \textbf{Premium Accounts}. The core business logic specifies that premium account holders receive an automatic cash-back bonus whenever funds are deposited into their account.
+
+\vspace{0.25cm}
+\section*{2. Architecture and Technical Requirements}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+\begin{enumerate}
+    \setlength{\itemsep}{7pt}
+    \item \textbf{Encapsulation (\texttt{BankAccount}):}
+    \begin{itemize}
+        \item Create a base class named \texttt{BankAccount}.
+        \item Store balance in a private variable (\texttt{\_accBalance}).
+        \item Provide a public getter (\texttt{get balance}) to read balance without direct external modification.
+        \item Implement a \texttt{deposit(double amount)} method to handle fund deposits safely.
+    \end{itemize}
+    \item \textbf{Inheritance and Polymorphism (\texttt{PremiumAccount}):}
+    \begin{itemize}
+        \item Implement a derived class \texttt{PremiumAccount} that extends \texttt{BankAccount}.
+        \item Override \texttt{deposit(double amount)} so that premium customers automatically receive an additional \textbf{5\% cash-back bonus} on every deposit.
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.35cm}
+\section*{3. Design and Logic Explanation}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+\begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{Encapsulation Mechanism:} By applying the underscore prefix (\texttt{\_accBalance}), the field is scoped library-private. External code cannot directly overwrite the balance, ensuring validation rules remain intact.
+    \item \textbf{Inheritance Model:} \texttt{PremiumAccount} reuses the base balance management logic from \texttt{BankAccount} without redundant code.
+    \item \textbf{Polymorphic Bonus Addition:} In \texttt{PremiumAccount}, the \texttt{deposit} method calculates the cash-back bonus:
+    \[
+        \text{Cashback} = \text{amount} \times 0.05
+    \]
+    The total amount credited to the account becomes $\text{amount} + \text{Cashback}$, which is handed over to \texttt{super.deposit(amount + cashback);}.
+\end{itemize}
+
+\newpage
+
+% ==============================================================================
+% PAGE 3: SOURCE CODE LISTING
+% ==============================================================================
+\section*{4. Source Code Implementation (\texttt{digital\_wallet.dart})}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.2cm}
+
+\lstinputlisting[language=Dart]{digital_wallet.dart}
+
+\newpage
+
+% ==============================================================================
+% PAGE 4: OUTPUT AND ANALYSIS
+% ==============================================================================
+\section*{5. Execution Output and Results}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.2cm}
+
+Executing the Dart script produces the following terminal output:
+
+\vspace{0.2cm}
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\small, frame=single, backgroundcolor=\color{black!5}]
+=== Testing Standard Account ===
+Deposited: $2000.0 | Available Balance: $2000.0
+Current balance: $2000.0
+
+=== Testing Premium Account ===
+[Cashback] 5% bonus added: $100.0
+Deposited: $2100.0 | Available Balance: $2100.0
+Current balance: $2100.0
+\end{lstlisting}
+
+\vspace{0.4cm}
+\section*{6. Discussion and Conclusion}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+\begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{Standard Account Behavior:} A deposit of \$2000.0 adds exactly \$2000.0 to the balance, accessible only via the getter property.
+    \item \textbf{Premium Account Behavior:} A deposit of \$2000.0 triggers the overridden method, which adds a 5\% cash-back bonus of \$100.0 ($2000 \times 0.05$). The total credited amount is \$2100.0.
+    \item \textbf{Conclusion:} The system accurately implements the core OOP concepts of encapsulation, inheritance, and polymorphism in Dart with modular, error-checked code.
+\end{itemize}
+
+\end{document}
+

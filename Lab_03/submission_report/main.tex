@@ -1,0 +1,427 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1.8cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{booktabs}
+
+% Hyperlink configuration
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={IRE 460 - Lab Report 03: Dart Collections, File Handling & CLI To-Do Application},
+    pdfauthor={Shahriar Alom Masud}
+}
+
+% Dart syntax highlighting configuration
+\definecolor{codegreen}{rgb}{0,0.55,0}
+\definecolor{codegray}{rgb}{0.45,0.45,0.45}
+\definecolor{codepurple}{rgb}{0.55,0,0.75}
+\definecolor{backcolour}{rgb}{0.98,0.98,0.98}
+\definecolor{keywordblue}{rgb}{0.0,0.2,0.8}
+
+\lstdefinelanguage{Dart}{
+  morekeywords={abstract,as,assert,async,await,break,case,catch,class,const,continue,default,deferred,do,dynamic,else,enum,export,extends,extension,external,factory,false,final,finally,for,Function,get,hide,if,implements,import,in,interface,is,late,library,mixin,new,null,of,on,operator,part,rethrow,return,set,show,static,super,switch,sync,this,throw,true,try,typedef,var,void,while,with,yield},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinestyle{dartstyle}{
+    language=Dart,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{keywordblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize\linespread{0.92}\selectfont,
+    breaklines=true,                 
+    numbers=left,                    
+    numbersep=6pt,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{lightgray},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false
+}
+
+\lstdefinestyle{outputstyle}{
+    backgroundcolor=\color{black!4},
+    basicstyle=\ttfamily\scriptsize\selectfont,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{gray!30},
+    numbers=none
+}
+
+\lstset{style=dartstyle}
+
+\begin{document}
+
+% ==============================================================================
+% COVER PAGE (PAGE 1)
+% ==============================================================================
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[line width=1.2pt] 
+            ([shift={(1.2cm,-1.2cm)}]current page.north west) 
+            rectangle 
+            ([shift={(-1.2cm,1.2cm)}]current page.south east);
+        \draw[line width=0.5pt] 
+            ([shift={(1.32cm,-1.32cm)}]current page.north west) 
+            rectangle 
+            ([shift={(-1.32cm,1.32cm)}]current page.south east);
+    \end{tikzpicture}
+
+    \centering
+    \vspace*{0.3cm}
+
+    \includegraphics[width=3.6cm]{screenshots/uftb_logo.png}\\[0.35cm]
+    {\normalsize \textbf{UNIVERSITY OF FRONTIER TECHNOLOGY, BANGLADESH}}\\[0.14cm]
+    {\footnotesize \textbf{DEPARTMENT OF INTERNET OF THINGS AND ROBOTICS ENGINEERING (IRE)}}\\[0.12cm]
+    {\footnotesize FACULTY OF CYBER PHYSICAL SYSTEM ENGINEERING}\\[0.6cm]
+
+    \noindent\rule{0.88\textwidth}{0.85pt}\\[0.75cm]
+
+    {\large \textbf{LAB REPORT 03}}\\[0.22cm]
+    {\normalsize \textbf{DART COLLECTIONS, FILE HANDLING AND CLI TO-DO APPLICATION}}\\[0.12cm]
+    {\footnotesize \textit{(List, Set, Map, File I/O, Higher-Order Functions, and CLI Architecture)}}\\[0.75cm]
+
+    {\normalsize \textbf{COURSE CODE: IRE 460}}\\[0.16cm]
+    {\normalsize \textbf{COURSE TITLE: MOBILE PLATFORM FOR IOT DEVICES SESSIONAL}}\\[0.9cm]
+
+    {\small \textbf{\underline{SUBMITTED BY:}}}\\[0.2cm]
+    {\large \textbf{Shahriar Alom Masud}}\\[0.12cm]
+    {\small Student ID: \textbf{2201032} \quad $\vert$ \quad Session: 2022--2023}\\[0.08cm]
+    {\footnotesize Department of Internet of Things and Robotics Engineering (IRE), UFTB}\\[0.85cm]
+
+    {\small \textbf{\underline{SUBMITTED TO:}}}\\[0.2cm]
+    {\large \textbf{Md. Rafiqul Islam}}\\[0.12cm]
+    {\small Lecturer}\\[0.08cm]
+    {\footnotesize Department of Internet of Things and Robotics Engineering (IRE)}\\[0.06cm]
+    {\footnotesize University of Frontier Technology, Bangladesh}
+
+    \vfill
+    {\footnotesize NOVEMBER 03, 2026}
+    \vspace*{0.25cm}
+\end{titlepage}
+
+\newpage
+\pagenumbering{arabic}
+
+% ==============================================================================
+% SECTION: LAB OBJECTIVES & PROBLEM STATEMENTS
+% ==============================================================================
+\section*{Laboratory Objectives and Problem Overview}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+This laboratory module focuses on fundamental data structures and input/output systems in the Dart programming language, essential for building mobile applications on Flutter. The tasks cover:
+\begin{enumerate}
+    \setlength{\itemsep}{3pt}
+    \item \textbf{Problem 1:} Create a list of names and print all names using list.
+    \item \textbf{Problem 2:} Create a set of fruits and print all fruits using loop.
+    \item \textbf{Problem 3:} Create a program that reads list of expenses amount using user input and print total.
+    \item \textbf{Problem 4:} Create an empty list of type string called \texttt{days}. Use the \texttt{add} method to add names of 7 days and print all days.
+    \item \textbf{Problem 5:} Read data from a file, capitalize each word, and write the result into a separate file in the same format.
+    \item \textbf{Problem 6:} Create a map with \texttt{name}, \texttt{address}, \texttt{age}, \texttt{country} keys and store values to it. Update country name to another country and print all keys and values.
+    \item \textbf{Problem 7:} Create a map with contact names and phone keys, and use \texttt{where} to find all keys that have length 4.
+    \item \textbf{Problem 8:} Create a simple to-do application that allows the user to add, remove, and view their tasks.
+\end{enumerate}
+
+\vspace{0.3cm}
+\noindent\textbf{GitHub Repository Link:}\\
+\href{https://github.com/Masud744/flutter-lab/tree/main/Lab_03}{\texttt{https://github.com/Masud744/flutter-lab/tree/main/Lab\_03}}
+
+\vspace{0.5cm}
+
+% ==============================================================================
+% PROBLEM 1
+% ==============================================================================
+\section*{Problem 1: List of Names and Printing}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.1cm}
+\textbf{Task Requirement:} Create a list of names and print all names using list.\\
+\textbf{Implementation Details:} An indexed collection of type \texttt{List<String>} is populated with names. Dart offers direct formatting as well as standard iteration.
+
+\subsection*{Source Code (\texttt{src/problem1\_names\_list.dart})}
+\lstinputlisting[language=Dart]{../src/problem1_names_list.dart}
+
+\subsection*{Program Execution Output}
+\begin{lstlisting}[style=outputstyle]
+========================================
+        Problem 1: List of Names        
+========================================
+
+Printing entire list directly:
+[Shahriar, Masud, Rafiqul, Tanvir, Sakib]
+
+Printing names individually using loop:
+1. Shahriar
+2. Masud
+3. Rafiqul
+4. Tanvir
+5. Sakib
+\end{lstlisting}
+
+\newpage
+
+% ==============================================================================
+% PROBLEM 2
+% ==============================================================================
+\section*{Problem 2: Set of Fruits and Loop Iteration}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.1cm}
+\textbf{Task Requirement:} Create a set of fruits and print all fruits using loop.\\
+\textbf{Implementation Details:} A \texttt{Set<String>} is an unordered collection of unique elements. The elements are iterated over using an enhanced \texttt{for-in} loop.
+
+\subsection*{Source Code (\texttt{src/problem2\_fruits\_set.dart})}
+\lstinputlisting[language=Dart]{../src/problem2_fruits_set.dart}
+
+\subsection*{Program Execution Output}
+\begin{lstlisting}[style=outputstyle]
+========================================
+        Problem 2: Set of Fruits        
+========================================
+
+Printing all fruits using for-in loop:
+1. Apple
+2. Banana
+3. Mango
+4. Orange
+5. Strawberry
+6. Pineapple
+
+Total unique fruits count: 6
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+% ==============================================================================
+% PROBLEM 3
+% ==============================================================================
+\section*{Problem 3: User Input Expenses Calculator}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.1cm}
+\textbf{Task Requirement:} Create a program that reads list of expenses amount using user input and print total.\\
+\textbf{Implementation Details:} Utilizing \texttt{dart:io}, the application prompts the user for the number of expenses and their respective numeric amounts, storing them in a \texttt{List<double>}. The cumulative sum is computed cleanly using the \texttt{.fold()} method.
+
+\subsection*{Source Code (\texttt{src/problem3\_expenses.dart})}
+\lstinputlisting[language=Dart]{../src/problem3_expenses.dart}
+
+\subsection*{Program Execution Output}
+\begin{lstlisting}[style=outputstyle]
+========================================
+     Problem 3: Expenses Calculator     
+========================================
+Enter the number of expenses you want to input: 3
+Enter expense #1 amount: 120.50
+Enter expense #2 amount: 45.00
+Enter expense #3 amount: 84.50
+
+---------------- SUMMARY ----------------
+List of entered expenses: [120.5, 45.0, 84.5]
+Total number of items: 3
+Total Expenses: $250.00
+-----------------------------------------
+\end{lstlisting}
+
+\newpage
+
+% ==============================================================================
+% PROBLEM 4
+% ==============================================================================
+\section*{Problem 4: Days of the Week Dynamic List}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.1cm}
+\textbf{Task Requirement:} Create an empty list of type string called \texttt{days}. Use the \texttt{add} method to add names of 7 days and print all days.\\
+\textbf{Implementation Details:} A dynamic growable list \texttt{List<String> days = [];} is initialized empty and sequentially populated using seven distinct \texttt{.add()} method calls.
+
+\subsection*{Source Code (\texttt{src/problem4\_days\_list.dart})}
+\lstinputlisting[language=Dart]{../src/problem4_days_list.dart}
+
+\subsection*{Program Execution Output}
+\begin{lstlisting}[style=outputstyle]
+========================================
+    Problem 4: Days of the Week List    
+========================================
+Initial list: [] (Length: 0)
+
+Printing all days after using add() method:
+Day 1: Monday
+Day 2: Tuesday
+Day 3: Wednesday
+Day 4: Thursday
+Day 5: Friday
+Day 6: Saturday
+Day 7: Sunday
+
+Complete list representation: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+% ==============================================================================
+% PROBLEM 5
+% ==============================================================================
+\section*{Problem 5: File Word Capitalization}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.1cm}
+\textbf{Task Requirement:} Read data from a file and capitalized each word and write the result in separate file. Both file should be in same format.\\
+\textbf{Implementation Details:} Utilizing the \texttt{File} class from \texttt{dart:io}, the text from \texttt{input.txt} is read synchronously, transformed such that each token begins with an uppercase letter followed by lowercase characters, and written to \texttt{output.txt}.
+
+\subsection*{Source Code (\texttt{src/problem5\_file\_capitalize.dart})}
+\lstinputlisting[language=Dart]{../src/problem5_file_capitalize.dart}
+
+\subsection*{Program Execution Output}
+\begin{lstlisting}[style=outputstyle]
+========================================
+ Problem 5: File Word Capitalization   
+========================================
+
+[1] Original content from "input.txt":
+----------------------------------------
+mobile platform for iot devices sessional
+learning flutter and dart collection libraries
+file input output operations in dart programming
+----------------------------------------
+
+[2] Processed content written to "output.txt":
+----------------------------------------
+Mobile Platform For Iot Devices Sessional
+Learning Flutter And Dart Collection Libraries
+File Input Output Operations In Dart Programming
+----------------------------------------
+
+[SUCCESS] Successfully processed file and saved capitalized data to output.txt
+\end{lstlisting}
+
+\newpage
+
+% ==============================================================================
+% PROBLEM 6
+% ==============================================================================
+\section*{Problem 6: Map Data Manipulation \& Key Update}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.1cm}
+\textbf{Task Requirement:} Create a map with \texttt{name}, \texttt{address}, \texttt{age}, \texttt{country} keys and store values to it. Update country name to other country and print all keys and values.\\
+\textbf{Implementation Details:} Demonstrates associative key-value mapping using \texttt{Map<String, dynamic>}, index-based value modification, and iteration over key-value entries.
+
+\subsection*{Source Code (\texttt{src/problem6\_person\_map.dart})}
+\lstinputlisting[language=Dart]{../src/problem6_person_map.dart}
+
+\subsection*{Program Execution Output}
+\begin{lstlisting}[style=outputstyle]
+========================================
+   Problem 6: Person Map & Update Key   
+========================================
+
+--- Initial Map Data ---
+name : Shahriar Alom Masud
+address : Gazipur, Dhaka
+age : 22
+country : Bangladesh
+
+Updating country: "Bangladesh" -> "Japan"...
+
+--- Updated Map Data (All Keys and Values) ---
+name      : Shahriar Alom Masud
+address   : Gazipur, Dhaka
+age       : 22
+country   : Japan
+\end{lstlisting}
+
+\vspace{0.4cm}
+
+% ==============================================================================
+% PROBLEM 7
+% ==============================================================================
+\section*{Problem 7: Map Filtering with \texttt{where} Method}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.1cm}
+\textbf{Task Requirement:} Create a map with name, phone keys and store some values to it. Use \texttt{where} to find all keys that have length 4.\\
+\textbf{Implementation Details:} Demonstrates higher-order functional querying on map keys (\texttt{contacts.keys.where((k) => k.length == 4)}).
+
+\subsection*{Source Code (\texttt{src/problem7\_phone\_map.dart})}
+\lstinputlisting[language=Dart]{../src/problem7_phone_map.dart}
+
+\subsection*{Program Execution Output}
+\begin{lstlisting}[style=outputstyle]
+========================================
+   Problem 7: Map Filtering with where  
+========================================
+
+--- All Contacts in Map ---
+John     (length: 4) -> 01711001122
+Alex     (length: 4) -> 01822334455
+Masud    (length: 5) -> 01933445566
+Sara     (length: 4) -> 01544556677
+Rifat    (length: 5) -> 01655667788
+Liam     (length: 4) -> 01366778899
+Tanvir   (length: 6) -> 01777889900
+
+--- Keys Having Length 4 (Filtered via .where()) ---
+Key: "John" | Phone: 01711001122
+Key: "Alex" | Phone: 01822334455
+Key: "Sara" | Phone: 01544556677
+Key: "Liam" | Phone: 01366778899
+
+Filtered Keys List: [John, Alex, Sara, Liam]
+\end{lstlisting}
+
+\newpage
+
+% ==============================================================================
+% PROBLEM 8
+% ==============================================================================
+\section*{Problem 8: Interactive CLI To-Do Application}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.1cm}
+\textbf{Task Requirement:} Create a simple to-do application that allows user to add, remove, and view their task.\\
+\textbf{Implementation Details:} Built with a modular \texttt{TodoApp} class encapsulating a private list of task strings, accompanied by clean CRUD methods: \texttt{addTask()}, \texttt{removeTask()}, and \texttt{viewTasks()}. Includes an interactive menu loop with input validation.
+
+\subsection*{Source Code (\texttt{src/problem8\_todo\_app.dart})}
+\lstinputlisting[language=Dart]{../src/problem8_todo_app.dart}
+
+\subsection*{Program Execution Output}
+\begin{lstlisting}[style=outputstyle]
+========================================
+   To-Do Application Demonstration      
+========================================
+
+--- 1. Viewing Initial Empty List ---
+
+================ CURRENT TO-DO LIST ================
+  (Your to-do list is empty! Add tasks to get started)
+====================================================
+
+--- 2. Adding Tasks ---
+[+] Success: Task "Complete IRE 460 Lab Report 03" added to list.
+[+] Success: Task "Study Flutter Widget Lifecycle" added to list.
+[+] Success: Task "Prepare IoT Project Presentation" added to list.
+
+--- 3. Viewing List After Additions ---
+
+================ CURRENT TO-DO LIST ================
+  [1] Complete IRE 460 Lab Report 03
+  [2] Study Flutter Widget Lifecycle
+  [3] Prepare IoT Project Presentation
+====================================================
+
+--- 4. Removing Task #2 ("Study Flutter Widget Lifecycle") ---
+[+] Success: Task #2 ("Study Flutter Widget Lifecycle") has been removed.
+
+--- 5. Viewing Final List ---
+
+================ CURRENT TO-DO LIST ================
+  [1] Complete IRE 460 Lab Report 03
+  [2] Prepare IoT Project Presentation
+====================================================
+\end{lstlisting}
+
+\vspace{0.3cm}
+\section*{Conclusion}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+In this laboratory session, all eight problem statements covering fundamental and intermediate Dart constructs—including dynamic lists, unique sets, associative maps, predicate filtering using \texttt{.where()}, standard file input/output, and console menu-driven application design—were successfully implemented, verified, and documented.
+
+\end{document}
