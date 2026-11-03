@@ -1,0 +1,157 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{caption}
+
+% Hyperlink configuration
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={Mobile Platform for IoT Devices Sessional - Lab Report 01},
+    pdfauthor={Shahriar Alom Masud}
+}
+
+% Dart syntax highlighting configuration
+\definecolor{codegreen}{rgb}{0,0.55,0}
+\definecolor{codegray}{rgb}{0.45,0.45,0.45}
+\definecolor{codepurple}{rgb}{0.55,0,0.75}
+\definecolor{backcolour}{rgb}{0.98,0.98,0.98}
+\definecolor{keywordblue}{rgb}{0.0,0.2,0.8}
+
+\lstdefinelanguage{Dart}{
+  morekeywords={abstract,as,assert,async,await,break,case,catch,class,const,continue,default,deferred,do,dynamic,else,enum,export,extends,extension,external,factory,false,final,finally,for,Function,get,hide,if,implements,import,in,interface,is,late,library,mixin,new,null,of,on,operator,part,rethrow,return,set,show,static,super,switch,sync,this,throw,true,try,typedef,var,void,while,with,yield},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinestyle{dartstyle}{
+    language=Dart,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{keywordblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small\linespread{0.9}\selectfont,
+    breaklines=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{lightgray},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false
+}
+
+\lstset{style=dartstyle}
+
+\begin{document}
+
+% ==============================================================================
+% COVER PAGE (PAGE 1)
+% ==============================================================================
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[line width=1.2pt] 
+            ([shift={(1.2cm,-1.2cm)}]current page.north west) 
+            rectangle 
+            ([shift={(-1.2cm,1.2cm)}]current page.south east);
+        \draw[line width=0.5pt] 
+            ([shift={(1.32cm,-1.32cm)}]current page.north west) 
+            rectangle 
+            ([shift={(-1.32cm,1.32cm)}]current page.south east);
+    \end{tikzpicture}
+
+    \centering
+    \vspace*{0.4cm}
+
+    \includegraphics[width=3.6cm]{screenshots/uftb_logo.png}\\[0.4cm]
+    {\normalsize \textbf{UNIVERSITY OF FRONTIER TECHNOLOGY, BANGLADESH}}\\[0.16cm]
+    {\footnotesize \textbf{DEPARTMENT OF INTERNET OF THINGS AND ROBOTICS ENGINEERING (IRE)}}\\[0.14cm]
+    {\footnotesize FACULTY OF CYBER PHYSICAL SYSTEM ENGINEERING}\\[0.55cm]
+
+    \noindent\rule{0.88\textwidth}{0.85pt}\\[0.85cm]
+
+    {\large \textbf{LAB REPORT 01}}\\[0.25cm]
+    {\normalsize \textbf{TITLE / TOPIC NAME}}\\[0.85cm]
+
+    {\normalsize \textbf{COURSE CODE: IRE 460}}\\[0.18cm]
+    {\normalsize \textbf{COURSE TITLE: MOBILE PLATFORM FOR IOT DEVICES SESSIONAL}}\\[1.0cm]
+
+    {\small \textbf{\underline{SUBMITTED BY:}}}\\[0.22cm]
+    {\large \textbf{Shahriar Alom Masud}}\\[0.14cm]
+    {\small Student ID: \textbf{2201032} \quad $\vert$ \quad Session: 2022--2023}\\[0.1cm]
+    {\footnotesize Department of Internet of Things and Robotics Engineering (IRE), UFTB}\\[0.95cm]
+
+    {\small \textbf{\underline{SUBMITTED TO:}}}\\[0.22cm]
+    {\large \textbf{Md. Rafiqul Islam}}\\[0.14cm]
+    {\small Lecturer}\\[0.1cm]
+    {\footnotesize Department of Internet of Things and Robotics Engineering (IRE)}\\[0.08cm]
+    {\footnotesize University of Frontier Technology, Bangladesh}
+
+    \vfill
+    {\footnotesize \today}
+    \vspace*{0.3cm}
+\end{titlepage}
+
+\newpage
+\pagenumbering{arabic}
+
+% ==============================================================================
+% PAGE 2: OBJECTIVES & METHODOLOGY
+% ==============================================================================
+\section*{1. Problem Statement and Objectives}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.08cm}
+
+[Problem description and objectives placeholder]
+
+\vspace{0.06cm}
+\noindent\textbf{Objectives:}
+\begin{enumerate}
+    \item Objective 1
+    \item Objective 2
+\end{enumerate}
+
+\vspace{0.04cm}
+\noindent\textbf{GitHub Repository Link:}\\
+\href{https://github.com/Masud744/flutter-lab/tree/main/Lab_01}{\texttt{https://github.com/Masud744/flutter-lab/tree/main/Lab\_01}}\vspace{0.12cm}
+
+\section*{2. Implementation Details}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.06cm}
+
+[Implementation details and logic explanation placeholder]
+
+\newpage
+
+% ==============================================================================
+% PAGE 3: SOURCE CODE & EXECUTION OUTPUT
+% ==============================================================================
+\section*{3. Source Code Listing}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.2cm}
+
+\subsection*{Task 1 Source Code}
+\lstinputlisting[language=Dart]{../src/task1.dart}
+
+\vspace{0.3cm}
+\subsection*{Task 2 Source Code}
+\lstinputlisting[language=Dart]{../src/task2.dart}
+
+\section*{4. Output and Discussion}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.12cm}
+
+[Output screenshots, execution trace and discussion placeholder]
+
+\end{document}
+
