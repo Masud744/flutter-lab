@@ -1,51 +1,42 @@
-// ==============================================================================
-// Course Code: IRE 460 | Mobile Platform for IoT Devices Sessional
-// Lab Task: Digital Wallet Backend System
-// Student Name: Shahriar Alom Masud | ID: 2201032
-// ==============================================================================
-
-// Base class demonstrating Encapsulation
+// Base class for bank account
 class BankAccount {
-  // Private field
-  double _balance = 0.0;
+  double _balance = 0.0; // private variable
 
-  // Public getter to read balance
+  // public getter to check balance
   double get balance => _balance;
 
-  // Method to deposit money
   void deposit(double amount) {
     if (amount > 0) {
       _balance += amount;
-      print('Deposited: \$${amount.toStringAsFixed(2)} | New Balance: \$${_balance.toStringAsFixed(2)}');
+      print("Deposited: \$$amount | Total Balance: \$$_balance");
     } else {
-      print('Invalid deposit amount.');
+      print("Please enter a valid deposit amount.");
     }
   }
 }
 
-// Subclass demonstrating Inheritance and Polymorphism
+// Premium account with 5% cashback
 class PremiumAccount extends BankAccount {
-  // Overriding deposit method to add 5% cash-back bonus automatically
   @override
   void deposit(double amount) {
     if (amount > 0) {
-      double bonus = amount * 0.05; // 5% cash-back
-      print('Premium Reward: 5% Cash-Back Bonus of \$${bonus.toStringAsFixed(2)} added!');
+      double bonus = amount * 0.05; // 5% cashback
+      print("Cashback bonus: \$$bonus");
       super.deposit(amount + bonus);
     } else {
-      print('Invalid deposit amount.');
+      print("Please enter a valid deposit amount.");
     }
   }
 }
 
 void main() {
-  print('--- Testing Standard Account ---');
-  BankAccount standard = BankAccount();
-  standard.deposit(1000.0);
-  print('Final Standard Account Balance: \$${standard.balance.toStringAsFixed(2)}\n');
+  print("--- Testing Standard Account ---");
+  var acc1 = BankAccount();
+  acc1.deposit(1000);
+  print("Account balance: \$${acc1.balance}\n");
 
-  print('--- Testing Premium Account ---');
-  PremiumAccount premium = PremiumAccount();
-  premium.deposit(1000.0);
-  print('Final Premium Account Balance: \$${premium.balance.toStringAsFixed(2)}');
+  print("--- Testing Premium Account ---");
+  var acc2 = PremiumAccount();
+  acc2.deposit(1000); // 50 bonus will be added automatically
+  print("Account balance: \$${acc2.balance}");
 }

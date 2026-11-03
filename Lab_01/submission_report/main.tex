@@ -186,13 +186,13 @@ Below is the terminal output obtained by executing the Dart script (\texttt{dart
 \vspace{0.2cm}
 \begin{lstlisting}[language=bash, basicstyle=\ttfamily\small, frame=single, backgroundcolor=\color{black!5}]
 --- Testing Standard Account ---
-Deposited: $1000.00 | New Balance: $1000.00
-Final Standard Account Balance: $1000.00
+Deposited: $1000.0 | Total Balance: $1000.0
+Account balance: $1000.0
 
 --- Testing Premium Account ---
-Premium Reward: 5% Cash-Back Bonus of $50.00 added!
-Deposited: $1050.00 | New Balance: $1050.00
-Final Premium Account Balance: $1050.00
+Cashback bonus: $50.0
+Deposited: $1050.0 | Total Balance: $1050.0
+Account balance: $1050.0
 \end{lstlisting}
 
 \vspace{0.4cm}
@@ -201,8 +201,8 @@ Final Premium Account Balance: $1050.00
 
 \begin{itemize}
     \setlength{\itemsep}{5pt}
-    \item \textbf{Standard Account Verification:} Depositing \$1000.00 increases the balance from \$0.00 to \$1000.00 without any additional bonus, as expected. The balance is accessible strictly via the getter method.
-    \item \textbf{Premium Account Verification:} Depositing \$1000.00 triggers the overridden \texttt{deposit} method, calculating a 5\% cash-back bonus ($1000 \times 0.05 = \$50.00$). The final balance credited is \$1050.00, confirming the automatic cash-back logic.
+    \item \textbf{Standard Account Verification:} Depositing \$1000.0 increases the balance from \$0.0 to \$1000.0 without any bonus. The balance is accessible strictly via the getter method.
+    \item \textbf{Premium Account Verification:} Depositing \$1000.0 triggers the overridden \texttt{deposit} method, calculating a 5\% cash-back bonus ($1000 \times 0.05 = \$50.0$). The final balance credited is \$1050.0, confirming the automatic cash-back logic.
     \item \textbf{Conclusion:} All architectural requirements regarding encapsulation, inheritance, and polymorphic method overriding in Dart were successfully satisfied with clean and modular code.
 \end{itemize}
 
