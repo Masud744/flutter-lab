@@ -12,3 +12,8 @@ Thumbs.db
 # Logs
 *.log
 
+# Antigravity & Custom Rules
+.gemini/
+.antigravity/
+
+

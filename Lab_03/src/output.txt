@@ -1,3 +1,2 @@
 Mobile Platform For Iot Devices Sessional
-Learning Flutter And Dart Collection Libraries
-File Input Output Operations In Dart Programming
+Learning Dart Collections And File Handling

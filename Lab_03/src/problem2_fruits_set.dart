@@ -1,20 +1,8 @@
-// Lab 03 - Problem 2: Create a set of fruits and print all fruits using loop.
-
 void main() {
-  // Creating a Set of unique fruits
-  Set<String> fruits = {'Apple', 'Banana', 'Mango', 'Orange', 'Strawberry', 'Pineapple'};
+  Set<String> fruits = {'Apple', 'Banana', 'Mango', 'Orange', 'Strawberry'};
 
-  print('========================================');
-  print('        Problem 2: Set of Fruits        ');
-  print('========================================');
-
-  print('\nPrinting all fruits using for-in loop:');
-  int index = 1;
-  for (String fruit in fruits) {
-    print('$index. $fruit');
-    index++;
+  print('Fruits in set:');
+  for (var fruit in fruits) {
+    print(fruit);
   }
-
-  print('\nTotal unique fruits count: ${fruits.length}');
 }
-
