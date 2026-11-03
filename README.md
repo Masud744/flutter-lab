@@ -16,7 +16,7 @@ Instructor: Md. Rafiqul Islam, Lecturer, Dept. of IRE, UFTB
 
 | Lab No. | Topic / Problem Statement | Technology / Language | Status | Report Link |
 | :---: | :--- | :--- | :---: | :---: |
-| Lab 01 | [Dart Control Flow & Fundamentals](Lab_01/) | Dart / Flutter | In Progress | [2201032_Report_1.pdf](Lab_01/submission_report/2201032_Report_1.pdf) |
+| Lab 01 | [Digital Wallet Backend System (OOP)](Lab_01/) | Dart | Completed | [2201032_Report_1.pdf](Lab_01/submission_report/2201032_Report_1.pdf) |
 
 ---
 
@@ -25,3 +25,4 @@ Instructor: Md. Rafiqul Islam, Lecturer, Dept. of IRE, UFTB
 - Flutter SDK (3.x+)
 - Dart SDK
 - LaTeX (pdflatex, texlive)
+
