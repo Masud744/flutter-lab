@@ -1,0 +1,263 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1.4cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+% Hyperlink configuration
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={IRE 460 - Lab Report 04: Object-Oriented Programming in Dart},
+    pdfauthor={Shahriar Alom Masud}
+}
+
+% Dart syntax highlighting configuration
+\definecolor{codegreen}{rgb}{0,0.55,0}
+\definecolor{codegray}{rgb}{0.45,0.45,0.45}
+\definecolor{codepurple}{rgb}{0.55,0,0.75}
+\definecolor{backcolour}{rgb}{0.98,0.98,0.98}
+\definecolor{keywordblue}{rgb}{0.0,0.2,0.8}
+
+\lstdefinelanguage{Dart}{
+  morekeywords={abstract,as,assert,async,await,break,case,catch,class,const,continue,default,deferred,do,dynamic,else,enum,export,extends,extension,external,factory,false,final,finally,for,Function,get,hide,if,implements,import,in,interface,is,late,library,mixin,new,null,of,on,operator,part,rethrow,return,set,show,static,super,switch,sync,this,throw,true,try,typedef,var,void,while,with,yield},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinestyle{dartstyle}{
+    language=Dart,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{keywordblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\scriptsize\linespread{0.82}\selectfont,
+    breaklines=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{lightgray},
+    aboveskip=4pt,
+    belowskip=4pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false
+}
+
+\lstdefinestyle{bashstyle}{
+    backgroundcolor=\color{black!5},
+    basicstyle=\ttfamily\scriptsize\linespread{0.82}\selectfont,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{lightgray},
+    aboveskip=4pt,
+    belowskip=4pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false
+}
+
+\lstset{style=dartstyle}
+
+\begin{document}
+
+% ==============================================================================
+% COVER PAGE (PAGE 1)
+% ==============================================================================
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[line width=1.2pt] 
+            ([shift={(1.2cm,-1.2cm)}]current page.north west) 
+            rectangle 
+            ([shift={(-1.2cm,1.2cm)}]current page.south east);
+        \draw[line width=0.5pt] 
+            ([shift={(1.32cm,-1.32cm)}]current page.north west) 
+            rectangle 
+            ([shift={(-1.32cm,1.32cm)}]current page.south east);
+    \end{tikzpicture}
+
+    \centering
+    \vspace*{0.4cm}
+
+    \includegraphics[width=3.6cm]{screenshots/uftb_logo.png}\\[0.4cm]
+    {\normalsize \textbf{UNIVERSITY OF FRONTIER TECHNOLOGY, BANGLADESH}}\\[0.16cm]
+    {\footnotesize \textbf{DEPARTMENT OF INTERNET OF THINGS AND ROBOTICS ENGINEERING (IRE)}}\\[0.14cm]
+    {\footnotesize FACULTY OF CYBER PHYSICAL SYSTEM ENGINEERING}\\[0.65cm]
+
+    \noindent\rule{0.88\textwidth}{0.85pt}\\[0.85cm]
+
+    {\large \textbf{LAB REPORT 04}}\\[0.25cm]
+    {\normalsize \textbf{OBJECT-ORIENTED PROGRAMMING IN DART}}\\[0.15cm]
+    {\footnotesize \textit{(Student Result Management, Course Registration, and Hospital Scheduler)}}\\[0.85cm]
+
+    {\normalsize \textbf{COURSE CODE: IRE 460}}\\[0.18cm]
+    {\normalsize \textbf{COURSE TITLE: MOBILE PLATFORM FOR IOT DEVICES SESSIONAL}}\\[1.0cm]
+
+    {\small \textbf{\underline{SUBMITTED BY:}}}\\[0.22cm]
+    {\large \textbf{Shahriar Alom Masud}}\\[0.14cm]
+    {\small Student ID: \textbf{2201032} \quad $\vert$ \quad Session: 2022--2023}\\[0.1cm]
+    {\footnotesize Department of Internet of Things and Robotics Engineering (IRE), UFTB}\\[0.95cm]
+
+    {\small \textbf{\underline{SUBMITTED TO:}}}\\[0.22cm]
+    {\large \textbf{Md. Rafiqul Islam}}\\[0.14cm]
+    {\small Lecturer}\\[0.1cm]
+    {\footnotesize Department of Internet of Things and Robotics Engineering (IRE)}\\[0.08cm]
+    {\footnotesize University of Frontier Technology, Bangladesh}
+
+    \vfill
+    {\footnotesize NOVEMBER 16, 2026}
+    \vspace*{0.3cm}
+\end{titlepage}
+
+\newpage
+\pagenumbering{arabic}
+
+% ==============================================================================
+% PAGE 2: PROBLEM STATEMENTS & REQUIREMENTS
+% ==============================================================================
+\section*{1. Problem Statements and Requirements}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+\subsection*{Task 1: Student Result Management System}
+\textbf{Problem Statement:} Design a system to manage student results. Each student has a name, ID, and a list of subjects with marks. The system should calculate the average and determine the grade (A, B, C, F).\\
+\textbf{Requirements:}
+\begin{itemize}
+    \setlength{\itemsep}{2pt}
+    \item Create a \texttt{Student} class.
+    \item Create a \texttt{Subject} class.
+    \item Add methods to calculate average and grade.
+    \item Display student details with results.
+\end{itemize}
+
+\vspace{0.25cm}
+\subsection*{Task 2: University Course Registration}
+\textbf{Problem Statement:} Create a system where students can register for courses. Each course has a code, title, and credit hours. Students can register for multiple courses.\\
+\textbf{Requirements:}
+\begin{itemize}
+    \setlength{\itemsep}{2pt}
+    \item Create \texttt{Course} and \texttt{Student} classes.
+    \item Add registration logic (including preventing duplicate registration).
+    \item Display registered courses and total credits.
+\end{itemize}
+
+\vspace{0.25cm}
+\subsection*{Task 3: Hospital Appointment Scheduler}
+\textbf{Problem Statement:} Build a system to schedule appointments between patients and doctors. Each doctor has a name, specialization, and available slots. Patients can book appointments.\\
+\textbf{Requirements:}
+\begin{itemize}
+    \setlength{\itemsep}{2pt}
+    \item Create \texttt{Doctor} and \texttt{Patient} classes.
+    \item Implement appointment booking.
+    \item Prevent double booking.
+    \item Display appointment summary.
+\end{itemize}
+
+\vspace{0.3cm}
+\noindent\textbf{GitHub Repository Link:}\\
+\href{https://github.com/Masud744/flutter-lab/tree/main/Lab_04}{\texttt{https://github.com/Masud744/flutter-lab/tree/main/Lab\_04}}
+
+\vspace{0.4cm}
+\section*{2. Summary \& Key Findings}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+All three laboratory tasks were implemented in Dart using clean object-oriented principles:
+\begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{Task 1 (Student Result System):} Demonstrates class encapsulation and aggregation by maintaining subjects within a student entity and dynamically computing weighted averages and letter grades.
+    \item \textbf{Task 2 (Course Registration):} Employs multi-object association and enrollment verification logic to prevent duplicate registrations and compute cumulative credit totals.
+    \item \textbf{Task 3 (Hospital Scheduler):} Utilizes list membership checks and key-value mapping to manage appointment allocations, successfully preventing double-booking on occupied slots.
+\end{itemize}
+
+\newpage
+
+% ==============================================================================
+% PAGE 3: TASK 1 CODE & OUTPUT
+% ==============================================================================
+\section*{3. Task 1: Student Result Management System}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+\subsection*{Dart Source Code (\texttt{task1\_student\_result.dart})}
+\lstinputlisting[language=Dart]{../src/task1_student_result.dart}
+
+\vspace{0.2cm}
+\subsection*{Execution Output}
+\begin{lstlisting}[style=bashstyle]
+--- Student Result ---
+Name: Shahriar Alom Masud (ID: 2201032)
+  Mobile Computing: 85.0
+  IoT Networks: 78.0
+  Machine Learning: 92.0
+Average: 85.00 | Grade: A
+
+--- Student Result ---
+Name: Tanvir Hasan (ID: 2201015)
+  Mobile Computing: 65.0
+  IoT Networks: 58.0
+  Machine Learning: 70.0
+Average: 64.33 | Grade: B
+\end{lstlisting}
+
+\newpage
+
+% ==============================================================================
+% PAGE 4: TASK 2 CODE & OUTPUT
+% ==============================================================================
+\section*{4. Task 2: University Course Registration}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+\subsection*{Dart Source Code (\texttt{task2\_course\_registration.dart})}
+\lstinputlisting[language=Dart]{../src/task2_course_registration.dart}
+
+\vspace{0.2cm}
+\subsection*{Execution Output}
+\begin{lstlisting}[style=bashstyle]
+Registered: IRE 460 - Mobile Platform for IoT Devices
+Registered: IRE 462 - Sensor Interfacing Lab
+Registered: IRE 484 - Artificial Intelligence
+Already registered for IRE 460
+
+--- Registered Courses for Shahriar Alom Masud (2201032) ---
+IRE 460: Mobile Platform for IoT Devices (3 credits)
+IRE 462: Sensor Interfacing Lab (2 credits)
+IRE 484: Artificial Intelligence (3 credits)
+Total Credits: 8
+\end{lstlisting}
+
+\newpage
+
+% ==============================================================================
+% PAGE 5: TASK 3 CODE & OUTPUT
+% ==============================================================================
+\section*{5. Task 3: Hospital Appointment Scheduler}
+\noindent\rule{\textwidth}{0.5pt}\vspace{0.15cm}
+
+\subsection*{Dart Source Code (\texttt{task3\_hospital\_scheduler.dart})}
+\lstinputlisting[language=Dart]{../src/task3_hospital_scheduler.dart}
+
+\vspace{0.15cm}
+\subsection*{Execution Output}
+\begin{lstlisting}[style=bashstyle]
+Booked: Shahriar Alom Masud with Dr. Kamrul Ahsan at 10:00 AM
+Booked: Arifur Rahman with Dr. Kamrul Ahsan at 10:30 AM
+Booking failed: Slot "10:00 AM" is not available for Dr. Kamrul Ahsan
+
+--- Doctor Schedule: Dr. Kamrul Ahsan (Cardiology) ---
+Bookings:
+  10:00 AM -> Shahriar Alom Masud (01711223344)
+  10:30 AM -> Arifur Rahman (01822334455)
+Remaining Slots:
+  11:00 AM
+\end{lstlisting}
+
+\end{document}

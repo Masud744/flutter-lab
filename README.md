@@ -18,6 +18,7 @@ Instructor: Md. Rafiqul Islam, Lecturer, Dept. of IRE, UFTB
 | :---: | :--- | :--- | :---: | :---: |
 | Lab 01 | [Digital Wallet Backend System (OOP)](Lab_01/) | Dart | Completed | [2201032_Report_1.pdf](Lab_01/submission_report/2201032_Report_1.pdf) |
 | Lab 03 | [Dart Collections, File Handling & CLI To-Do App](Lab_03/) | Dart | Completed | [2201032_Report_3.pdf](Lab_03/submission_report/2201032_Report_3.pdf) |
+| Lab 04 | [OOP in Dart: Student Results, Course Registration & Hospital Scheduler](Lab_04/) | Dart | Completed | [2201032_Report_4.pdf](Lab_04/submission_report/2201032_Report_4.pdf) |
 
 ---
 
